@@ -25,8 +25,8 @@ pipeline:
     image: plugins/docker:17.12
     secrets: [ docker_username, docker_password ]
     pull: true
-    repo: zzdats/dotnet-sonnarscanner
-    cache_from: zzdats/dotnet-sonnarscanner
+    repo: zzdats/dotnet-sonarscanner
+    cache_from: zzdats/dotnet-sonarscanner
     build_args:
       - DOTNET_VERSION=2.1-alpine3.9
       - SONAR_SCANNER_VERSION=4.6.0
@@ -43,8 +43,8 @@ pipeline:
     image: plugins/docker:17.12
     secrets: [ docker_username, docker_password ]
     pull: true
-    repo: zzdats/dotnet-sonnarscanner
-    cache_from: zzdats/dotnet-sonnarscanner
+    repo: zzdats/dotnet-sonarscanner
+    cache_from: zzdats/dotnet-sonarscanner
     build_args:
       - DOTNET_VERSION=2.2-alpine3.9
       - SONAR_SCANNER_VERSION=4.6.0
