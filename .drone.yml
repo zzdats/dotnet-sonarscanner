@@ -57,3 +57,42 @@ pipeline:
         - push
       branch:
         - master
+
+  docker-dotnet21-mono:
+    image: plugins/docker:17.12
+    secrets: [ docker_username, docker_password ]
+    pull: true
+    repo: zzdats/dotnet-sonarscanner
+    cache_from: zzdats/dotnet-sonarscanner
+    dockerfile: Dockerfile.mono
+    build_args:
+      - DOTNET_VERSION=2.1-alpine3.9
+      - SONAR_SCANNER_VERSION=4.6.0
+    tag:
+      - 2.1-mono
+      - 2.1-4.6.0-mono
+    when:
+      event:
+        - push
+      branch:
+        - master
+
+  docker-dotnet22-mono:
+    image: plugins/docker:17.12
+    secrets: [ docker_username, docker_password ]
+    pull: true
+    repo: zzdats/dotnet-sonarscanner
+    cache_from: zzdats/dotnet-sonarscanner
+    dockerfile: Dockerfile.mono
+    build_args:
+      - DOTNET_VERSION=2.2-alpine3.9
+      - SONAR_SCANNER_VERSION=4.6.0
+    tag:
+      - latest-mono
+      - 2.2-mono
+      - 2.2-4.6.0-mono
+    when:
+      event:
+        - push
+      branch:
+        - master
