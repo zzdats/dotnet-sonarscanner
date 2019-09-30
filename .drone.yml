@@ -29,10 +29,10 @@ pipeline:
     cache_from: zzdats/dotnet-sonarscanner
     build_args:
       - DOTNET_VERSION=2.1-alpine3.9
-      - SONAR_SCANNER_VERSION=4.6.0
+      - SONAR_SCANNER_VERSION=4.7.1
     tag:
       - "2.1"
-      - 2.1-4.6.0
+      - 2.1-4.7.1
     when:
       event:
         - push
@@ -47,11 +47,30 @@ pipeline:
     cache_from: zzdats/dotnet-sonarscanner
     build_args:
       - DOTNET_VERSION=2.2-alpine3.9
-      - SONAR_SCANNER_VERSION=4.6.0
+      - SONAR_SCANNER_VERSION=4.7.1
     tag:
       - latest
       - "2.2"
-      - 2.2-4.6.0
+      - 2.2-4.7.1
+    when:
+      event:
+        - push
+      branch:
+        - master
+
+  docker-dotnet30:
+    image: plugins/docker:17.12
+    secrets: [ docker_username, docker_password ]
+    pull: true
+    repo: zzdats/dotnet-sonarscanner
+    cache_from: zzdats/dotnet-sonarscanner
+    build_args:
+      - DOTNET_VERSION=3.0-alpine3.9
+      - SONAR_SCANNER_VERSION=4.7.1
+    tag:
+      - latest
+      - "3.0"
+      - 3.0-4.7.1
     when:
       event:
         - push
@@ -67,10 +86,10 @@ pipeline:
     dockerfile: Dockerfile.mono
     build_args:
       - DOTNET_VERSION=2.1-alpine3.9
-      - SONAR_SCANNER_VERSION=4.6.0
+      - SONAR_SCANNER_VERSION=4.7.1
     tag:
       - 2.1-mono
-      - 2.1-4.6.0-mono
+      - 2.1-4.7.1-mono
     when:
       event:
         - push
@@ -86,11 +105,31 @@ pipeline:
     dockerfile: Dockerfile.mono
     build_args:
       - DOTNET_VERSION=2.2-alpine3.9
-      - SONAR_SCANNER_VERSION=4.6.0
+      - SONAR_SCANNER_VERSION=4.7.1
     tag:
       - latest-mono
       - 2.2-mono
-      - 2.2-4.6.0-mono
+      - 2.2-4.7.1-mono
+    when:
+      event:
+        - push
+      branch:
+        - master
+
+  docker-dotnet30-mono:
+    image: plugins/docker:17.12
+    secrets: [ docker_username, docker_password ]
+    pull: true
+    repo: zzdats/dotnet-sonarscanner
+    cache_from: zzdats/dotnet-sonarscanner
+    dockerfile: Dockerfile.mono
+    build_args:
+      - DOTNET_VERSION=3.0-alpine3.9
+      - SONAR_SCANNER_VERSION=4.7.1
+    tag:
+      - latest-mono
+      - 3.0-mono
+      - 3.0-4.7.1-mono
     when:
       event:
         - push
