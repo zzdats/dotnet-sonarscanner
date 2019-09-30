@@ -49,7 +49,6 @@ pipeline:
       - DOTNET_VERSION=2.2-alpine3.9
       - SONAR_SCANNER_VERSION=4.7.1
     tag:
-      - latest
       - "2.2"
       - 2.2-4.7.1
     when:
@@ -107,7 +106,6 @@ pipeline:
       - DOTNET_VERSION=2.2-alpine3.9
       - SONAR_SCANNER_VERSION=4.7.1
     tag:
-      - latest-mono
       - 2.2-mono
       - 2.2-4.7.1-mono
     when:
