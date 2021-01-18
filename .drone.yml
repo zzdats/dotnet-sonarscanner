@@ -1,26 +1,13 @@
 ---
 kind: pipeline
+type: docker
 name: default
 
 platform:
   os: linux
   arch: amd64
 
-clone:
-  disable: true
-
-workspace:
-  base: /go
-  path: src
-
 steps:
-  - name: git
-    pull: if-not-exists
-    image: plugins/git:next
-    settings:
-      depth: 50
-      tags: true
-
   - name: lint
     pull: always
     image: hadolint/hadolint:latest-debian
@@ -38,45 +25,24 @@ steps:
 
   - name: docker-dotnet21
     pull: always
-    image: plugins/docker:17.12
+    image: plugins/docker:18
     settings:
       build_args:
         - DOTNET_VERSION=2.1-alpine3.9
-        - SONAR_SCANNER_VERSION=4.10.0
+        - SONAR_SCANNER_VERSION=5.0.4
       cache_from: zzdats/dotnet-sonarscanner
       dockerfile: Dockerfile.netcore2
       repo: zzdats/dotnet-sonarscanner
       tag:
         - 2.1
-        - 2.1-4.10.0
+        - 2.1-5.0.4
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
       DOCKER_USERNAME:
         from_secret: docker_username
-    when:
-      branch:
-        - master
-      event:
-        - push
-
-  - name: docker-dotnet30
-    pull: always
-    image: plugins/docker:17.12
-    settings:
-      build_args:
-        - DOTNET_VERSION=3.0-alpine3.11
-        - SONAR_SCANNER_VERSION=4.10.0
-      cache_from: zzdats/dotnet-sonarscanner
-      repo: zzdats/dotnet-sonarscanner
-      tag:
-        - 3.0
-        - 3.0-4.10.0
-    environment:
-      DOCKER_PASSWORD:
-        from_secret: docker_password
-      DOCKER_USERNAME:
-        from_secret: docker_username
+    depends_on:
+      - lint
     when:
       branch:
         - master
@@ -85,22 +51,49 @@ steps:
 
   - name: docker-dotnet31
     pull: always
-    image: plugins/docker:17.12
+    image: plugins/docker:18
     settings:
       build_args:
-        - DOTNET_VERSION=3.1-alpine3.11
-        - SONAR_SCANNER_VERSION=4.10.0
+        - DOTNET_VERSION=3.1-alpine3.12
+        - SONAR_SCANNER_VERSION=5.0.4
       cache_from: zzdats/dotnet-sonarscanner
       repo: zzdats/dotnet-sonarscanner
       tag:
-        - latest
         - 3.1
-        - 3.1-4.10.0
+        - 3.1-5.0.4
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
       DOCKER_USERNAME:
         from_secret: docker_username
+    depends_on:
+      - lint
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+  - name: docker-dotnet5
+    pull: always
+    image: plugins/docker:18
+    settings:
+      build_args:
+        - DOTNET_VERSION=5.0-alpine3.12
+        - SONAR_SCANNER_VERSION=5.0.4
+      cache_from: zzdats/dotnet-sonarscanner
+      repo: zzdats/dotnet-sonarscanner
+      tag:
+        - latest
+        - "5.0"
+        - 5.0-5.0.4
+    environment:
+      DOCKER_PASSWORD:
+        from_secret: docker_password
+      DOCKER_USERNAME:
+        from_secret: docker_username
+    depends_on:
+      - lint
     when:
       branch:
         - master
@@ -109,46 +102,24 @@ steps:
 
   - name: docker-dotnet21-mono
     pull: always
-    image: plugins/docker:17.12
+    image: plugins/docker:18
     settings:
       build_args:
         - DOTNET_VERSION=2.1-alpine3.9
-        - SONAR_SCANNER_VERSION=4.10.0
+        - SONAR_SCANNER_VERSION=5.0.4
       cache_from: zzdats/dotnet-sonarscanner
       dockerfile: Dockerfile.mono-netcore2
       repo: zzdats/dotnet-sonarscanner
       tag:
         - 2.1-mono
-        - 2.1-4.10.0-mono
+        - 2.1-5.0.4-mono
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
       DOCKER_USERNAME:
         from_secret: docker_username
-    when:
-      branch:
-        - master
-      event:
-        - push
-
-  - name: docker-dotnet30-mono
-    pull: always
-    image: plugins/docker:17.12
-    settings:
-      build_args:
-        - DOTNET_VERSION=3.0-alpine3.11
-        - SONAR_SCANNER_VERSION=4.10.0
-      cache_from: zzdats/dotnet-sonarscanner
-      dockerfile: Dockerfile.mono
-      repo: zzdats/dotnet-sonarscanner
-      tag:
-        - 3.0-mono
-        - 3.0-4.10.0-mono
-    environment:
-      DOCKER_PASSWORD:
-        from_secret: docker_password
-      DOCKER_USERNAME:
-        from_secret: docker_username
+    depends_on:
+      - lint
     when:
       branch:
         - master
@@ -157,23 +128,51 @@ steps:
 
   - name: docker-dotnet31-mono
     pull: always
-    image: plugins/docker:17.12
+    image: plugins/docker:18
     settings:
       build_args:
-        - DOTNET_VERSION=3.1-alpine3.11
-        - SONAR_SCANNER_VERSION=4.10.0
+        - DOTNET_VERSION=3.1-alpine3.12
+        - SONAR_SCANNER_VERSION=5.0.4
       cache_from: zzdats/dotnet-sonarscanner
       dockerfile: Dockerfile.mono
       repo: zzdats/dotnet-sonarscanner
       tag:
-        - latest-mono
         - 3.1-mono
-        - 3.1-4.10.0-mono
+        - 3.1-5.0.4-mono
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
       DOCKER_USERNAME:
         from_secret: docker_username
+    depends_on:
+      - lint
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+  - name: docker-dotnet5-mono
+    pull: always
+    image: plugins/docker:18
+    settings:
+      build_args:
+        - DOTNET_VERSION=5.0-alpine3.12
+        - SONAR_SCANNER_VERSION=5.0.4
+      cache_from: zzdats/dotnet-sonarscanner
+      dockerfile: Dockerfile.mono
+      repo: zzdats/dotnet-sonarscanner
+      tag:
+        - latest-mono
+        - 5.0-mono
+        - 5.0-5.0.4-mono
+    environment:
+      DOCKER_PASSWORD:
+        from_secret: docker_password
+      DOCKER_USERNAME:
+        from_secret: docker_username
+    depends_on:
+      - lint
     when:
       branch:
         - master
