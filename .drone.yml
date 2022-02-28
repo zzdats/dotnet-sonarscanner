@@ -27,12 +27,12 @@ steps:
     settings:
       build_args:
         - DOTNET_VERSION=3.1-alpine3.14
-        - SONAR_SCANNER_VERSION=5.4.1
+        - SONAR_SCANNER_VERSION=5.5.3
       cache_from: zzdats/dotnet-sonarscanner
       repo: zzdats/dotnet-sonarscanner
       tag:
         - 3.1
-        - 3.1-5.4.1
+        - 3.1-5.5.3
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
@@ -52,12 +52,12 @@ steps:
     settings:
       build_args:
         - DOTNET_VERSION=5.0-alpine3.14
-        - SONAR_SCANNER_VERSION=5.4.1
+        - SONAR_SCANNER_VERSION=5.5.3
       cache_from: zzdats/dotnet-sonarscanner
       repo: zzdats/dotnet-sonarscanner
       tag:
         - "5.0"
-        - 5.0-5.4.1
+        - 5.0-5.5.3
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
@@ -77,13 +77,13 @@ steps:
     settings:
       build_args:
         - DOTNET_VERSION=6.0-alpine3.14
-        - SONAR_SCANNER_VERSION=5.4.1
+        - SONAR_SCANNER_VERSION=5.5.3
       cache_from: zzdats/dotnet-sonarscanner
       repo: zzdats/dotnet-sonarscanner
       tag:
         - latest
         - "6.0"
-        - 6.0-5.4.1
+        - 6.0-5.5.3
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
@@ -103,13 +103,13 @@ steps:
     settings:
       build_args:
         - DOTNET_VERSION=3.1-alpine3.14
-        - SONAR_SCANNER_VERSION=5.4.1
+        - SONAR_SCANNER_VERSION=5.5.3
       cache_from: zzdats/dotnet-sonarscanner
       dockerfile: Dockerfile.mono
       repo: zzdats/dotnet-sonarscanner
       tag:
         - 3.1-mono
-        - 3.1-5.4.1-mono
+        - 3.1-5.5.3-mono
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
@@ -129,13 +129,13 @@ steps:
     settings:
       build_args:
         - DOTNET_VERSION=5.0-alpine3.14
-        - SONAR_SCANNER_VERSION=5.4.1
+        - SONAR_SCANNER_VERSION=5.5.3
       cache_from: zzdats/dotnet-sonarscanner
       dockerfile: Dockerfile.mono
       repo: zzdats/dotnet-sonarscanner
       tag:
         - 5.0-mono
-        - 5.0-5.4.1-mono
+        - 5.0-5.5.3-mono
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
@@ -155,14 +155,14 @@ steps:
     settings:
       build_args:
         - DOTNET_VERSION=6.0-alpine3.14
-        - SONAR_SCANNER_VERSION=5.4.1
+        - SONAR_SCANNER_VERSION=5.5.3
       cache_from: zzdats/dotnet-sonarscanner
       dockerfile: Dockerfile.mono
       repo: zzdats/dotnet-sonarscanner
       tag:
         - latest-mono
         - 6.0-mono
-        - 6.0-5.4.1-mono
+        - 6.0-5.5.3-mono
     environment:
       DOCKER_PASSWORD:
         from_secret: docker_password
