@@ -1,7 +1,7 @@
 # dotnet-sonarscanner
 
-[![Build Status](https://cloud.drone.io/api/badges/zzdats/dotnet-sonarscanner/status.svg)](https://cloud.drone.io/zzdats/dotnet-sonarscanner)
+[![CI](https://github.com/zzdats/dotnet-sonarscanner/actions/workflows/publish.yml/badge.svg?branch=main&event=push)](https://github.com/zzdats/dotnet-sonarscanner/actions/workflows/publish.yml)
 
-## Drone .NET Core sonar scanner plugin
+## .NET docker image with sonar scanner plugin installed
 
-.NET Core SDK with installed dotnet-sonarscanner tool.
+.NET SDK with installed dotnet-sonarscanner tool.
