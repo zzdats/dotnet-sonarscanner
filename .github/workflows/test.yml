@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build
+      - name: Build Alpine
         uses: docker/build-push-action@v5
         with:
           push: false
@@ -32,3 +32,14 @@ jobs:
           tags: |
             zzdats/dotnet-sonarscanner:${{ matrix.version }}
             zzdats/dotnet-sonarscanner:${{ matrix.version }}-${{ matrix.sq_version }}
+      - name: Build Ubuntu
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          file: Dockerfile.ubuntu
+          build-args: |
+            DOTNET_VERSION=${{ matrix.version }}-jammy
+            SONAR_SCANNER_VERSION=${{ matrix.sq_version }}
+          tags: |
+            zzdats/dotnet-sonarscanner:${{ matrix.version }}-ubuntu
+            zzdats/dotnet-sonarscanner:${{ matrix.version }}-${{ matrix.sq_version }}-ubuntu
