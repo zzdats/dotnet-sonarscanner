@@ -1,0 +1,33 @@
+name: Docker Image CI
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+  build:
+    strategy:
+      matrix:
+        version: [ "6.0", "7.0", "8.0" ]
+        sq_version: [ "6.0.0" ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and publish
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          build-args: |
+            DOTNET_VERSION=${{ matrix.version }}-alpine3.18
+            SONAR_SCANNER_VERSION=${{ matrix.sq_version }}
+          tags: |
+            zzdats/dotnet-sonarscanner:${{ matrix.version }}
+            zzdats/dotnet-sonarscanner:${{ matrix.version }}-${{ matrix.sq_version }}
