@@ -17,23 +17,23 @@ jobs:
   build:
     strategy:
       matrix:
-        version: [ "6.0", "7.0", "8.0" ]
-        sq_version: [ "6.2.0" ]
+        version: [ "6.0", "8.0" ]
+        sq_version: [ "8.0.1" ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Build Alpine
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: false
           build-args: |
-            DOTNET_VERSION=${{ matrix.version }}-alpine3.18
+            DOTNET_VERSION=${{ matrix.version }}-alpine3.20
             SONAR_SCANNER_VERSION=${{ matrix.sq_version }}
           tags: |
             zzdats/dotnet-sonarscanner:${{ matrix.version }}
             zzdats/dotnet-sonarscanner:${{ matrix.version }}-${{ matrix.sq_version }}
       - name: Build Ubuntu
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: false
           file: Dockerfile.ubuntu
