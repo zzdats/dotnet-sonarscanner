@@ -17,8 +17,8 @@ jobs:
   build:
     strategy:
       matrix:
-        version: [ "8.0", "9.0" ]
-        sq_version: [ "10.2.0" ]
+        version: [ "8.0", "9.0", "10.0" ]
+        sq_version: [ "11.0.0" ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
         with:
           push: false
           build-args: |
-            DOTNET_VERSION=${{ matrix.version }}-alpine3.22
+            DOTNET_VERSION=${{ matrix.version }}-alpine3.23
             SONAR_SCANNER_VERSION=${{ matrix.sq_version }}
           tags: |
             zzdats/dotnet-sonarscanner:${{ matrix.version }}

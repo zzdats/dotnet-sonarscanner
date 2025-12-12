@@ -5,6 +5,6 @@ ARG SONAR_SCANNER_VERSION
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
-RUN apt-get update && apt-get install -y --no-install-recommends 'openjdk-17-jre-headless=17.*' 'openjdk-17-jdk-headless=17.*' \
+RUN apt-get update && apt-get install -y --no-install-recommends 'openjdk-21-jre-headless=21.*' 'openjdk-21-jdk-headless=21.*' \
     && dotnet tool install --global dotnet-sonarscanner --version ${SONAR_SCANNER_VERSION} \
     && rm -rf /var/lib/apt/lists/*

@@ -5,5 +5,5 @@ ARG SONAR_SCANNER_VERSION
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
-RUN apk add --no-cache --update openjdk17-jre~=17 openjdk17~=17 nss~=3 \
+RUN apk add --no-cache --update openjdk21-jre~=21 openjdk21~=21 nss~=3 \
     && dotnet tool install --global dotnet-sonarscanner --version ${SONAR_SCANNER_VERSION}
